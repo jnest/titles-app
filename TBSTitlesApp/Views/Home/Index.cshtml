@@ -1,7 +1,4 @@
-﻿
-
-
-<div class="row spacer">
+﻿<div class="row spacer">
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-12">
@@ -11,7 +8,7 @@
 
         <div class="row spacer">
             <div class="col-md-6">
-                <input id="title" style="margin-top:5px;width:300px" placeholder="All or part of a movie name..." required />
+                <input id="title" type="text" style="margin-top:5px;width:300px" placeholder="All or part of a movie name..." required />
             </div>
             <div class="col-md-6">
                 <button id="btnSearch" type="submit" class="btn btn-primary">Search</button>
@@ -56,7 +53,7 @@
                         $("#titles").prepend($('<div class="row"><div class="col-md-6"><a style="cursor:pointer;cursor:hand" onclick="getDetails(' + data[c].TitleID + ')">' + data[c].TitleName + '</a> (' + data[c].ReleaseYear + ')</div><div class="col-md-6"></div></div><br /> '));
                     }) 
                     if (data.length < 1) {
-                        $("#titles").text("No results found...");
+                        $("#titles").append('<span style="color:red">No results found...</span>');
                     }
                 },
                 error: function (xhr, textstatus, errorthrown) {
@@ -103,7 +100,6 @@
                         nominations += "<br /> ";
                     nominations += data.Nominations[c].AwardCompany + " " + data.Nominations[c].Award + " " + data.Nominations[c].AwardYear;
                 });
-
                
                 $("#details").append($('<div class="row"><div class="col-md-3">Title:</div><div class="col-md-9"><span style="color:red">' + data.TitleName + '</span></div></div><br />'));
                 $("#details").append($('<div class="row"><div class="col-md-3">Release Year:</div><div class="col-md-9">' + data.ReleaseYear + '</div></div><br />'));
