@@ -12,8 +12,8 @@ namespace TBSTitlesApp.Models
         public List<string> Genres { get; set; }
         public string Description { get; set; }
         public List<string> Participants { get; set; }
-        public List<Award> Nominations { get; set; }
-        public List<Award> Awards { get; set; }
+        public List<AwardModel> Nominations { get; set; }
+        public List<AwardModel> Awards { get; set; }
 
     }
 }

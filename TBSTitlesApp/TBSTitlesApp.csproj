@@ -194,6 +194,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AwardModel.cs" />
     <Compile Include="Models\TitleDetailsModel.cs" />
     <Compile Include="Models\TitleResultModel.cs" />
     <Compile Include="Services\TitlesController.cs" />

@@ -41,7 +41,30 @@ namespace TBSTitlesApp.Services
         {
             var titleID = Convert.ToInt32(id);
             var repo = new TitlesEntities();
-            var titles = _titlesRepo.Titles.Where(x => x.TitleId == titleID).FirstOrDefault();            
+            var titles = _titlesRepo.Titles.Where(x => x.TitleId == titleID).FirstOrDefault();   
+            
+            var awards = titles.Awards.Where(x => x.AwardWon == true).OrderByDescending(x => x.AwardYear).ToList();
+            var nominations = titles.Awards.Where(x => x.AwardWon == false).OrderByDescending(x => x.AwardYear).ToList();
+
+            var awardsList = new List<AwardModel>();
+            foreach (var award in awards)
+            {
+                AwardModel am = new AwardModel();
+                am.Award = award.Award1;
+                am.AwardCompany = award.AwardCompany;
+                am.AwardYear = award.AwardYear.ToString();
+                awardsList.Add(am);
+            }
+
+            var nominationsList = new List<AwardModel>();
+            foreach (var nomination in nominations)
+            {
+                AwardModel am = new AwardModel();
+                am.Award = nomination.Award1;
+                am.AwardCompany = nomination.AwardCompany;
+                am.AwardYear = nomination.AwardYear.ToString();
+                nominationsList.Add(am);
+            }
 
             TitleDetailsModel tdm = new TitleDetailsModel();
             tdm.ReleaseYear = titles.ReleaseYear.ToString();
@@ -49,8 +72,8 @@ namespace TBSTitlesApp.Services
             tdm.Genres = titles.TitleGenres.Select(x => x.Genre.Name).ToList();
             tdm.Description = titles.StoryLines.FirstOrDefault().Description;
             tdm.Participants = titles.TitleParticipants.Select(x => x.Participant.Name).ToList();
-            tdm.Awards = titles.Awards.Where(x => x.AwardWon == true).OrderByDescending(x => x.AwardYear).ToList();
-            tdm.Nominations = titles.Awards.Where(x => x.AwardWon == false).OrderByDescending(x => x.AwardYear).ToList();
+            tdm.Awards = awardsList;
+            tdm.Nominations = nominationsList;
 
             return tdm;
         }
